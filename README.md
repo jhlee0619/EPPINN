@@ -11,8 +11,8 @@ parameter estimation with voxel-wise uncertainty.
 
 - `train.py` — training / inference entry-point
 - `model.py` — EPPINN architecture (hash encoding + SIREN + evidential head)
-- `data.py` — ISLES2018 / digital phantom loaders
-- `utils.py` — losses, NIG decomposition, helpers
+- `data.py` — ISLES2018 case loader
+- `utils.py` — seed setting and physiological clipping helpers
 
 ## Install
 
@@ -25,17 +25,15 @@ cd tiny-cuda-nn/bindings/torch && python setup.py install
 
 ## Data
 
-- ISLES2018 dataset: https://www.smir.ch/ISLES/Start2018
-- Digital phantom: see Aichert et al. 2013, Riordan et al. 2011
+ISLES2018 dataset: https://www.smir.ch/ISLES/Start2018
 
 Organize each case as `<DATA_ROOT>/<case_id>/` containing NIfTI volumes
-(`ctp.nii.gz`, `aif.nii.gz`, `brainmask.nii.gz`) as expected by `data.py`.
+(`CTP_4D.nii.gz`, `aif.npy`, `brainmask.nii.gz`) as expected by `data.py`.
 
 ## Run
 
 ```bash
 DATA_ROOT=/path/to/isles python train.py \
-    --data_type isles \
     --case_dir $DATA_ROOT/case_001 \
     --output_dir results
 ```
